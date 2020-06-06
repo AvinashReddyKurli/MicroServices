@@ -18,4 +18,17 @@ public class LimitsConfigurationController {
 		return new LimitConfiguration(configuration.getMaximum(), configuration.getMinimum());
 	}
 
+	@GetMapping("/fault-tolerance")
+	@HystrixCommand(fallbackMethod="fallBackRetrieveConfiguration")
+    public LimitConfiguration retrieveConfiguration(){
+		
+		throw new RuntimeException("Not Available");
+	}
+	
+	
+    public LimitConfiguration fallBackRetrieveConfiguration(){
+		
+		return new LimitConfiguration(9,999);
+	}
+	
 }
